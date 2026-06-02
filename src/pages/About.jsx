@@ -4,16 +4,16 @@ export default function About() {
   return (
     <div className="w-full flex flex-col bg-white">
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 bg-[#F4F8F6] border-b border-[#E2ECE7]">
+      <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 bg-[#f4f8fa] border-b border-[#e2edf8]">
         <div className="max-w-[1680px] mx-auto px-5 sm:px-8 lg:px-16 xl:px-24 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#061c12] text-[#10B981] mb-6 shadow-sm border border-emerald-950">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#2e74e6] mb-6 shadow-sm border border-[#2e74e6]/20">
             <ShieldCheck size={12} />
             <span className="text-[10px] font-bold uppercase tracking-[2px] font-poppins">ABOUT GATE360</span>
           </div>
           
           <h1
             className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#121414] leading-[115%] mb-6"
-            style={{ fontFamily: '"Syne", sans-serif' }}
+            style={{ fontFamily: '"Poppins", sans-serif' }}
           >
             Empowering Safer, Smarter <br className="hidden sm:block" />
             Gated Communities.
@@ -32,7 +32,7 @@ export default function About() {
             
             {/* Vision */}
             <div className="flex flex-col">
-              <div className="w-12 h-12 rounded-xl bg-[#F4F8F6] border border-[#E2ECE7] flex items-center justify-center text-[#059669] mb-6">
+              <div className="w-12 h-12 rounded-xl bg-[#f4f8fa] border border-[#e2edf8] flex items-center justify-center text-[#2e74e6] mb-6">
                 <Target size={22} />
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-[#121414] font-poppins mb-4">Our Vision</h2>
@@ -43,7 +43,7 @@ export default function About() {
 
             {/* Mission */}
             <div className="flex flex-col">
-              <div className="w-12 h-12 rounded-xl bg-[#F4F8F6] border border-[#E2ECE7] flex items-center justify-center text-[#059669] mb-6">
+              <div className="w-12 h-12 rounded-xl bg-[#f4f8fa] border border-[#e2edf8] flex items-center justify-center text-[#2e74e6] mb-6">
                 <ShieldAlert size={22} />
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-[#121414] font-poppins mb-4">Our Mission</h2>
@@ -57,11 +57,11 @@ export default function About() {
       </section>
 
       {/* Core Values */}
-      <section className="w-full py-16 sm:py-24 bg-[#F4F8F6] border-t border-b border-[#E2ECE7]">
+      <section className="w-full py-16 sm:py-24 bg-[#f4f8fa] border-t border-b border-[#e2edf8]">
         <div className="max-w-[1680px] mx-auto px-5 sm:px-8 lg:px-16 xl:px-24">
           <div className="text-center max-w-[800px] mx-auto mb-16">
-            <span className="text-[11px] font-bold tracking-[3px] text-[#059669] uppercase block mb-3 font-poppins">OUR CORE VALUES</span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#121414]" style={{ fontFamily: '"Syne", sans-serif' }}>What Guides Gate360</h2>
+            <span className="text-[11px] font-bold tracking-[3px] text-[#2e74e6] uppercase block mb-3 font-poppins">OUR CORE VALUES</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#121414]" style={{ fontFamily: '"Poppins", sans-serif' }}>What Guides Gate360</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -87,8 +87,8 @@ export default function About() {
                 desc: "We provide high-impact cloud capabilities including Razorpay checkouts, AWS cost audits, and SMS gateways packaged in plans for communities of all sizes."
               }
             ].map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="bg-white border border-[#E2ECE7] rounded-2xl p-6 hover:border-[#059669] transition-all shadow-sm">
-                <div className="w-10 h-10 rounded-lg bg-[#F4F8F6] text-[#059669] flex items-center justify-center mb-5 border border-[#E2ECE7]">
+              <div key={title} className="bg-white border border-[#e2edf8] rounded-2xl p-6 hover:border-[#2e74e6] transition-all shadow-sm">
+                <div className="w-10 h-10 rounded-lg bg-[#f4f8fa] text-[#2e74e6] flex items-center justify-center mb-5 border border-[#e2edf8]">
                   <Icon size={18} />
                 </div>
                 <h3 className="text-lg font-bold text-[#121414] mb-2 font-poppins">{title}</h3>

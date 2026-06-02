@@ -1,14 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ShieldCheck,
   Mail,
   Phone,
   MapPin,
   Calendar,
-  Clock,
   CheckCircle,
-  Building2,
   Sparkles,
+  ArrowRight
 } from "lucide-react";
 
 export default function Contact() {
@@ -23,6 +22,24 @@ export default function Contact() {
     time: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Scroll animations observer
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal-auto");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   const toggleModule = (moduleName) => {
     setFormData((prev) => {
@@ -42,97 +59,73 @@ export default function Contact() {
   };
 
   return (
-    <div className="w-full flex flex-col bg-white font-poppins">
+    <div className="w-full flex flex-col bg-white">
       {/* ================= HERO HEADER ================= */}
-      <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 bg-[#F4F8F6] border-b border-[#E2ECE7]">
-        <div className="max-w-[1680px] mx-auto px-5 sm:px-8 lg:px-16 xl:px-24 text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#061c12] text-[#10B981] mb-6 shadow-sm border border-emerald-950">
-            <Calendar size={12} className="text-[#10B981]" />
-            <span className="text-[10px] font-bold uppercase tracking-[2px] font-poppins">
-              BOOK A DEMO
-            </span>
+      <section className="hero-section-contact">
+        <div className="section-container text-center reveal-auto">
+          <div className="hero-badge-contact">
+            <Sparkles size={14} className="badge-icon" />
+            <span>Book a Product Demo</span>
           </div>
 
-          <h1
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#121414] leading-[115%] mb-6"
-            style={{ fontFamily: '"Syne", sans-serif' }}
-          >
-            Bring Gate360 to Your Committee.
+          <h1 className="hero-title-contact">
+            Bring Gate360 to Your <span className="gradient-text">Housing Committee</span>
           </h1>
 
-          <p className="max-w-[800px] mx-auto text-base sm:text-lg text-neutral-600 leading-[170%]">
-            Schedule a dedicated, interactive product presentation with our
-            community engineering architects. Learn how Gate360 can elevate
-            safety and simplify accounting for your apartments.
+          <p className="hero-desc-contact">
+            Schedule a dedicated, interactive product presentation with our community engineering architects. Learn how Gate360 can elevate safety and simplify accounting for your apartments.
           </p>
         </div>
       </section>
 
       {/* ================= CONTENT BODY ================= */}
-      <section className="w-full py-16 sm:py-24 bg-white">
-        <div className="max-w-[1680px] mx-auto px-5 sm:px-8 lg:px-16 xl:px-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 max-w-[1400px] mx-auto items-stretch">
-            {/* Left Column: Office Contacts */}
-            <div className="lg:col-span-5 flex flex-col justify-between bg-[#F4F8F6] border border-[#E2ECE7] rounded-3xl p-8 lg:p-10">
-              <div>
-                <span className="text-[10px] font-bold tracking-[3px] text-[#059669] uppercase block mb-3">
-                  CORPORATE HEADQUARTERS
-                </span>
-                <h3 className="text-2xl font-bold text-[#121414] mb-6 font-poppins">
-                  Gate360 Headquarters
-                </h3>
+      <section className="body-section-contact">
+        <div className="section-container">
+          <div className="contact-grid-layout">
+            
+            {/* Left Column: Office Contacts (Styled with Dark SaaS Theme) */}
+            <div className="office-card-dark reveal-auto">
+              <div className="card-top-content">
+                <span className="office-eyebrow">Corporate Office</span>
+                <h3 className="office-title">Gate360 Headquarters</h3>
 
-                <ul className="space-y-8">
+                <ul className="office-details-list">
                   {/* Address */}
-                  <li className="flex gap-4 items-start">
-                    <div className="w-10 h-10 rounded-xl bg-white border border-[#E2ECE7] flex items-center justify-center text-[#121414] shrink-0 shadow-sm">
+                  <li className="office-detail-item">
+                    <div className="office-icon-wrapper">
                       <MapPin size={18} />
                     </div>
-                    <div>
-                      <span className="text-xs font-bold text-neutral-400 block mb-1 uppercase">
-                        Head Office Address
-                      </span>
-                      <span className="text-neutral-700 text-sm sm:text-base leading-relaxed">
-                        Gate360 SaaS Ltd,
-                        <br />
-                        Amir Industrial Estate, 209, Sun Mill Compound,
-                        <br />
-                        opposite Phoenix Mall, Parel, Mumbai, Maharashtra 400013
-                      </span>
+                    <div className="office-text-block">
+                      <span className="office-label">Head Office Address</span>
+                      <p className="office-value">
+                        Gate360 SaaS Ltd,<br />
+                        Amir Industrial Estate, 209, Sun Mill Compound,<br />
+                        opposite Phoenix Mall, Parel, Mumbai, MH 400013
+                      </p>
                     </div>
                   </li>
 
                   {/* Phone */}
-                  <li className="flex gap-4 items-start">
-                    <div className="w-10 h-10 rounded-xl bg-white border border-[#E2ECE7] flex items-center justify-center text-[#121414] shrink-0 shadow-sm">
+                  <li className="office-detail-item">
+                    <div className="office-icon-wrapper">
                       <Phone size={18} />
                     </div>
-                    <div>
-                      <span className="text-xs font-bold text-neutral-400 block mb-1 uppercase">
-                        Cooperative Helpline
-                      </span>
-                      <a
-                        href="tel:+917738048925"
-                        className="text-neutral-700 font-semibold hover:text-[#059669] text-sm sm:text-base transition"
-                      >
+                    <div className="office-text-block">
+                      <span className="office-label">Cooperative Helpline</span>
+                      <a href="tel:+917738048925" className="office-link">
                         +91 79 7710 5170
                       </a>
                     </div>
                   </li>
 
                   {/* Email */}
-                  <li className="flex gap-4 items-start">
-                    <div className="w-10 h-10 rounded-xl bg-white border border-[#E2ECE7] flex items-center justify-center text-[#121414] shrink-0 shadow-sm">
+                  <li className="office-detail-item">
+                    <div className="office-icon-wrapper">
                       <Mail size={18} />
                     </div>
-                    <div>
-                      <span className="text-xs font-bold text-neutral-400 block mb-1 uppercase">
-                        Support Desk
-                      </span>
-                      <a
-                        href="mailto:support@gate360.in"
-                        className="text-neutral-700 font-semibold hover:text-[#059669] text-sm sm:text-base transition"
-                      >
+                    <div className="office-text-block">
+                      <span className="office-label">Support Desk</span>
+                      <a href="mailto:support@gate360.in" className="office-link">
                         support@gate360.in
                       </a>
                     </div>
@@ -140,156 +133,117 @@ export default function Contact() {
                 </ul>
               </div>
 
-              {/* Decorative Trust Badge */}
-              <div className="mt-12 pt-8 border-t border-[#E2ECE7] flex items-center gap-3">
-                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center border border-[#E2ECE7] text-[#059669] shrink-0 shadow-sm">
-                  <ShieldCheck size={24} />
+              {/* Trust Badge Section */}
+              <div className="trust-badge-block">
+                <div className="badge-icon-box">
+                  <ShieldCheck size={22} />
                 </div>
-                <div>
-                  <span className="text-xs font-bold text-[#121414] block">
-                    ISO 27001 Certified SaaS
-                  </span>
-                  <span className="text-[10px] text-neutral-400">
-                    Guaranteed 99.9% uptime & strict data schema segregation
+                <div className="badge-text-box">
+                  <span className="badge-title">ISO 27001 Certified Security</span>
+                  <span className="badge-desc">
+                    Guaranteed 99.9% uptime & strict multi-tenant collection isolation
                   </span>
                 </div>
               </div>
             </div>
 
             {/* Right Column: Dynamic Scheduler Form */}
-            <div className="lg:col-span-7 bg-white border border-[#E9E9E9] rounded-3xl p-8 lg:p-10 shadow-sm flex flex-col justify-center">
+            <div className="form-card-light reveal-auto">
               {!isSubmitted ? (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <span className="text-[10px] font-bold tracking-[3px] text-[#059669] uppercase block">
-                    SCHEDULER ENGINE
-                  </span>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <form onSubmit={handleSubmit} className="scheduler-form">
+                  <span className="form-eyebrow">Scheduler Engine</span>
+                  <h2>Select Your Presentation Slot</h2>
+                  
+                  <div className="form-row-grid">
                     {/* Name */}
-                    <div className="flex flex-col">
-                      <label className="text-xs font-bold text-neutral-600 mb-1.5 uppercase">
-                        Your Name
-                      </label>
+                    <div className="input-field-group">
+                      <label>Your Name</label>
                       <input
                         type="text"
                         required
-                        placeholder="Vinod kumar "
+                        placeholder="e.g. Vinod Kumar"
                         value={formData.name}
-                        onChange={(e) =>
-                          setFormData({ ...formData, name: e.target.value })
-                        }
-                        className="bg-[#F4F8F6] border border-[#E2ECE7] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#059669]"
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       />
                     </div>
 
                     {/* Email */}
-                    <div className="flex flex-col">
-                      <label className="text-xs font-bold text-neutral-600 mb-1.5 uppercase">
-                        Email Address
-                      </label>
+                    <div className="input-field-group">
+                      <label>Email Address</label>
                       <input
                         type="email"
                         required
-                        placeholder="vinodku4848@gmail.com"
+                        placeholder="e.g. vinodkumar@gmail.com"
                         value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
-                        className="bg-[#F4F8F6] border border-[#E2ECE7] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#059669]"
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="form-row-grid">
                     {/* Phone */}
-                    <div className="flex flex-col">
-                      <label className="text-xs font-bold text-neutral-600 mb-1.5 uppercase">
-                        Mobile Number
-                      </label>
+                    <div className="input-field-group">
+                      <label>Mobile Number</label>
                       <input
                         type="tel"
                         required
-                        placeholder="+91 79 7710 5170"
+                        placeholder="e.g. 7977105170"
                         value={formData.phone}
-                        onChange={(e) =>
-                          setFormData({ ...formData, phone: e.target.value })
-                        }
-                        className="bg-[#F4F8F6] border border-[#E2ECE7] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#059669]"
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       />
                     </div>
 
                     {/* Society Name */}
-                    <div className="flex flex-col">
-                      <label className="text-xs font-bold text-neutral-600 mb-1.5 uppercase">
-                        Gated Society Name
-                      </label>
+                    <div className="input-field-group">
+                      <label>Gated Society Name</label>
                       <input
                         type="text"
                         required
-                        placeholder="Windsor Castle Cooperative Housing Society"
+                        placeholder="e.g. Windsor Castle CHS"
                         value={formData.societyName}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            societyName: e.target.value,
-                          })
-                        }
-                        className="bg-[#F4F8F6] border border-[#E2ECE7] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#059669]"
+                        onChange={(e) => setFormData({ ...formData, societyName: e.target.value })}
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="form-row-grid">
                     {/* Unit/Flat Size */}
-                    <div className="flex flex-col">
-                      <label className="text-xs font-bold text-neutral-600 mb-1.5 uppercase">
-                        Approx. Flats/Units Count
-                      </label>
-                      <select
-                        value={formData.flatCount}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            flatCount: e.target.value,
-                          })
-                        }
-                        className="bg-[#F4F8F6] border border-[#E2ECE7] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#059669]"
-                      >
-                        <option value="<50">Less than 50 Flats</option>
-                        <option value="50-150">50 - 150 Flats</option>
-                        <option value="150-250">150 - 250 Flats</option>
-                        <option value="250+">More than 250 Flats</option>
-                      </select>
+                    <div className="input-field-group">
+                      <label>Flats/Units Count</label>
+                      <div className="select-input-container">
+                        <select
+                          value={formData.flatCount}
+                          onChange={(e) => setFormData({ ...formData, flatCount: e.target.value })}
+                        >
+                          <option value="<50">Less than 50 Units</option>
+                          <option value="50-150">50 - 150 Units</option>
+                          <option value="150-250">150 - 250 Units</option>
+                          <option value="250+">More than 250 Units</option>
+                        </select>
+                      </div>
                     </div>
 
                     {/* Target Booking Date */}
-                    <div className="flex flex-col">
-                      <label className="text-xs font-bold text-neutral-600 mb-1.5 uppercase">
-                        Preferred Demo Date
-                      </label>
+                    <div className="input-field-group">
+                      <label>Preferred Demo Date</label>
                       <input
                         type="date"
                         required
                         value={formData.date}
-                        onChange={(e) =>
-                          setFormData({ ...formData, date: e.target.value })
-                        }
-                        className="bg-[#F4F8F6] border border-[#E2ECE7] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#059669]"
+                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                       />
                     </div>
                   </div>
 
                   {/* Modules of Interest */}
-                  <div className="flex flex-col">
-                    <label className="text-xs font-bold text-neutral-600 mb-2 uppercase">
-                      Target Modules of Interest
-                    </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <div className="modules-selector-group">
+                    <label>Target Modules of Interest</label>
+                    <div className="modules-grid-options">
                       {[
                         "Gate Security",
                         "Billing Hub",
                         "SOS Panic Alerts",
-                        "Account Roster",
+                        "RWA Forums",
                       ].map((m) => {
                         const checked = formData.modules.includes(m);
                         return (
@@ -297,11 +251,7 @@ export default function Contact() {
                             key={m}
                             type="button"
                             onClick={() => toggleModule(m)}
-                            className={`py-2 rounded-xl text-[11px] font-bold border transition cursor-pointer ${
-                              checked
-                                ? "bg-[#059669] text-white border-[#059669]"
-                                : "bg-[#F4F8F6] text-neutral-600 border-[#E2ECE7] hover:bg-neutral-50"
-                            }`}
+                            className={`module-toggle-capsule ${checked ? "active" : ""}`}
                           >
                             {m}
                           </button>
@@ -311,44 +261,505 @@ export default function Contact() {
                   </div>
 
                   {/* Submit */}
-                  <button
-                    type="submit"
-                    className="w-full h-[52px] bg-[#059669] text-white hover:opacity-90 rounded-xl flex items-center justify-center gap-2 font-bold text-xs uppercase tracking-wider transition cursor-pointer shadow-sm"
-                  >
-                    <Sparkles size={14} />
-                    <span>Confirm Slot Booking</span>
+                  <button type="submit" className="form-submit-btn-custom">
+                    <Sparkles size={15} />
+                    <span>Confirm Presentation Slot</span>
                   </button>
                 </form>
               ) : (
-                <div className="text-center py-10 flex flex-col items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 border border-emerald-200 flex items-center justify-center mb-6 shadow-sm">
+                <div className="success-screen-block">
+                  <div className="success-icon-box">
                     <CheckCircle size={32} />
                   </div>
 
-                  <h3 className="text-3xl font-extrabold text-[#121414] font-poppins mb-3">
-                    Demo Presentation Booked!
-                  </h3>
-                  <p className="text-neutral-500 text-sm max-w-[480px] mx-auto leading-relaxed font-poppins mb-8">
-                    Congratulations <strong>{formData.name}</strong>, our
-                    society security engineer will reach out to you at{" "}
-                    <strong>{formData.email}</strong> or{" "}
-                    <strong>{formData.phone}</strong> to confirm your slot for{" "}
-                    <strong>{formData.societyName}</strong> (
-                    {formData.flatCount} units) on {formData.date}.
+                  <h3 className="success-title">Slot Booked Successfully!</h3>
+                  
+                  <p className="success-desc">
+                    Congratulations <strong>{formData.name}</strong>, our community onboarding specialist will reach out to you at <strong>{formData.email}</strong> or <strong>{formData.phone}</strong> to confirm your walkthrough slot for <strong>{formData.societyName}</strong> ({formData.flatCount} units) on {formData.date}.
                   </p>
 
-                  <button
-                    onClick={() => setIsSubmitted(false)}
-                    className="h-[46px] px-8 bg-[#059669] text-white hover:opacity-90 rounded-xl font-bold text-xs uppercase tracking-wider transition cursor-pointer shadow-sm"
-                  >
-                    Schedule Another Presentation
+                  <button onClick={() => setIsSubmitted(false)} className="success-reset-btn">
+                    <span>Schedule Another Presentation</span>
+                    <ArrowRight size={14} />
                   </button>
                 </div>
               )}
             </div>
+
           </div>
         </div>
       </section>
+
+      {/* ================= CUSTOM STYLES ================= */}
+      <style jsx>{`
+        .section-container {
+          max-width: 1440px;
+          margin: 0 auto;
+          padding: 0 40px;
+          width: 100%;
+        }
+
+        /* HERO HEADER */
+        .hero-section-contact {
+          padding: 140px 0 80px;
+          background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.08) 0%, rgba(79, 70, 229, 0.04) 50%, rgba(255, 255, 255, 0) 100%),
+                      linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+          overflow: hidden;
+          border-b: 1px solid #edf2f7;
+        }
+
+        .hero-badge-contact {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          color: #2563eb;
+          background: rgba(37, 99, 235, 0.07);
+          padding: 6px 14px;
+          border-radius: 99px;
+          text-transform: uppercase;
+          margin-bottom: 24px;
+        }
+
+        .hero-title-contact {
+          font-size: 58px;
+          font-weight: 800;
+          line-height: 1.15;
+          color: #0f172a;
+          margin: 0 0 20px 0;
+          letter-spacing: -0.02em;
+        }
+
+        .gradient-text {
+          background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc-contact {
+          max-width: 800px;
+          margin: 0 auto;
+          font-size: 18px;
+          line-height: 1.6;
+          color: #475569;
+        }
+
+        /* BODY SECTION */
+        .body-section-contact {
+          padding: 100px 0;
+          background: #ffffff;
+        }
+
+        .contact-grid-layout {
+          display: grid;
+          grid-template-columns: 0.95fr 1.05fr;
+          gap: 48px;
+          align-items: stretch;
+        }
+
+        /* OFFICE CARD - DARK SAAS STYLING */
+        .office-card-dark {
+          background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+          border-radius: 32px;
+          padding: 48px;
+          color: #ffffff;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          border: 1px solid rgba(255, 255, 255, 0.04);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+        }
+
+        .office-eyebrow {
+          display: block;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          color: #60a5fa;
+          text-transform: uppercase;
+          margin-bottom: 12px;
+        }
+
+        .office-title {
+          font-size: 28px;
+          font-weight: 800;
+          margin: 0 0 36px 0;
+          background: linear-gradient(135deg, #ffffff 0%, #93c5fd 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        .office-details-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 32px;
+        }
+
+        .office-detail-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 16px;
+        }
+
+        .office-icon-wrapper {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #60a5fa;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .office-text-block {
+          text-align: left;
+        }
+
+        .office-label {
+          display: block;
+          font-size: 11px;
+          font-weight: 700;
+          color: #94a3b8;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          margin-bottom: 4px;
+        }
+
+        .office-value {
+          font-size: 15px;
+          line-height: 1.6;
+          color: #e2e8f0;
+          margin: 0;
+        }
+
+        .office-link {
+          font-size: 16px;
+          font-weight: 700;
+          color: #ffffff;
+          text-decoration: none;
+          transition: color 0.2s;
+        }
+
+        .office-link:hover {
+          color: #60a5fa;
+        }
+
+        /* ISO Badge */
+        .trust-badge-block {
+          margin-top: 48px;
+          padding-top: 32px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          text-align: left;
+        }
+
+        .badge-icon-box {
+          width: 48px;
+          height: 48px;
+          border-radius: 14px;
+          background: rgba(16, 185, 129, 0.1);
+          border: 1px solid rgba(16, 185, 129, 0.2);
+          color: #10b981;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .badge-text-box {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .badge-title {
+          font-size: 13.5px;
+          font-weight: 700;
+          color: #ffffff;
+        }
+
+        .badge-desc {
+          font-size: 11.5px;
+          color: #94a3b8;
+          line-height: 1.4;
+          margin-top: 2px;
+        }
+
+        /* LIGHT FORM CARD STYLING */
+        .form-card-light {
+          background: #ffffff;
+          border: 1px solid #e2e8f0;
+          border-radius: 32px;
+          padding: 48px;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.02);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .scheduler-form {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .form-eyebrow {
+          display: block;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          color: #2563eb;
+          text-transform: uppercase;
+          margin-bottom: 8px;
+          text-align: left;
+        }
+
+        .scheduler-form h2 {
+          font-size: 28px;
+          font-weight: 800;
+          color: #0f172a;
+          margin: 0 0 32px 0;
+          letter-spacing: -0.01em;
+          text-align: left;
+        }
+
+        .form-row-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+          margin-bottom: 20px;
+        }
+
+        .input-field-group {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          text-align: left;
+        }
+
+        .input-field-group label {
+          font-size: 11.5px;
+          font-weight: 700;
+          color: #475569;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .input-field-group input,
+        .input-field-group select {
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
+          border-radius: 12px;
+          padding: 13px 16px;
+          font-size: 14.5px;
+          color: #0f172a;
+          outline: none;
+          transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-field-group input:focus,
+        .input-field-group select:focus {
+          border-color: #3b82f6;
+          background: #ffffff;
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        .input-field-group input::placeholder {
+          color: #cbd5e1;
+        }
+
+        /* Custom select styling */
+        .select-input-container {
+          position: relative;
+          display: flex;
+          width: 100%;
+        }
+
+        .select-input-container select {
+          width: 100%;
+          appearance: none;
+          cursor: pointer;
+        }
+
+        /* Modules Capsule options */
+        .modules-selector-group {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          text-align: left;
+          margin-bottom: 32px;
+        }
+
+        .modules-selector-group label {
+          font-size: 11.5px;
+          font-weight: 700;
+          color: #475569;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .modules-grid-options {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 8px;
+        }
+
+        .module-toggle-capsule {
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
+          color: #64748b;
+          border-radius: 12px;
+          padding: 10px 6px;
+          font-size: 11px;
+          font-weight: 700;
+          transition: all 0.2s ease;
+          cursor: pointer;
+          white-space: nowrap;
+          text-align: center;
+        }
+
+        .module-toggle-capsule:hover {
+          background: #f1f5f9;
+          border-color: #cbd5e1;
+          color: #334155;
+        }
+
+        .module-toggle-capsule.active {
+          background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+          color: #ffffff;
+          border-color: transparent;
+          box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+        }
+
+        /* Submit button */
+        .form-submit-btn-custom {
+          background: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #4f46e5 100%);
+          color: #ffffff;
+          border: none;
+          padding: 15px 30px;
+          border-radius: 99px;
+          font-weight: 700;
+          font-size: 13.5px;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          cursor: pointer;
+          box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+          transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+        }
+
+        .form-submit-btn-custom:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+        }
+
+        .form-submit-btn-custom:active {
+          transform: scale(0.98);
+        }
+
+        /* SUCCESS STATE SCREEN */
+        .success-screen-block {
+          text-align: center;
+          padding: 32px 10px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .success-icon-box {
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          background: rgba(16, 185, 129, 0.1);
+          border: 1px solid rgba(16, 185, 129, 0.2);
+          color: #10b981;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 24px;
+          box-shadow: 0 8px 16px rgba(16, 185, 129, 0.1);
+        }
+
+        .success-title {
+          font-size: 28px;
+          font-weight: 800;
+          color: #0f172a;
+          margin: 0 0 12px 0;
+          letter-spacing: -0.02em;
+        }
+
+        .success-desc {
+          font-size: 15px;
+          line-height: 1.65;
+          color: #475569;
+          max-width: 480px;
+          margin: 0 auto 32px;
+        }
+
+        .success-reset-btn {
+          background: #f8fafc;
+          border: 1px solid #e2e8f0;
+          color: #475569;
+          padding: 12px 28px;
+          border-radius: 99px;
+          font-weight: 700;
+          font-size: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .success-reset-btn:hover {
+          background: #f1f5f9;
+          border-color: #cbd5e1;
+          color: #1e293b;
+        }
+
+        /* MEDIA QUERIES */
+        @media (max-width: 1024px) {
+          .hero-title-contact { font-size: 42px; }
+          .contact-grid-layout { grid-template-columns: 1fr; gap: 40px; }
+          .office-card-dark { padding: 40px; }
+          .form-card-light { padding: 40px; }
+        }
+
+        @media (max-width: 640px) {
+          .section-container { padding: 0 20px; }
+          .form-row-grid { grid-template-columns: 1fr; gap: 16px; }
+          .modules-grid-options { grid-template-columns: repeat(2, 1fr); }
+          .office-card-dark { padding: 32px 20px; }
+          .form-card-light { padding: 32px 20px; }
+          .office-title { font-size: 24px; }
+          .scheduler-form h2 { font-size: 22px; }
+        }
+
+        /* REVEAL ON SCROLL */
+        :global(.reveal-auto) {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.85s cubic-bezier(0.25, 1, 0.5, 1), transform 0.85s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        :global(.reveal-auto.is-revealed) {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `}</style>
     </div>
   );
 }

@@ -2,30 +2,30 @@ import React from "react";
 
 export default function TermsOfService() {
   return (
-    <div className="w-full bg-[#F4F8F6] py-12 sm:py-20 text-black">
+    <div className="w-full bg-[#f4f8fa] py-12 sm:py-20 text-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Document Card */}
         <div className="bg-white rounded-3xl border border-gray-200/80 p-8 sm:p-12 lg:p-16 shadow-sm">
           {/* Header */}
-          <div className="border-b border-[#059669]/20 pb-8 mb-10">
+          <div className="border-b border-[#2e74e6]/20 pb-8 mb-10">
             <span
               className="text-[12px] sm:text-[13px] font-semibold tracking-[2px] uppercase mb-3 inline-block"
               style={{
-                color: "#059669",
-                fontFamily: '"Plus Jakarta Sans", sans-serif',
+                color: "#2e74e6",
+                fontFamily: '"Poppins", sans-serif',
               }}
             >
               LEGAL DOCUMENT
             </span>
             <h1
               className="text-3xl sm:text-4xl font-bold tracking-tight text-[#121414] mb-4"
-              style={{ fontFamily: '"Syne", sans-serif' }}
+              style={{ fontFamily: '"Poppins", sans-serif' }}
             >
               Terms of Service
             </h1>
             <p
               className="text-sm text-[#5C5A54] font-medium"
-              style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
+              style={{ fontFamily: '"Poppins", sans-serif' }}
             >
               Last Updated: May 30, 2026
             </p>
@@ -34,7 +34,7 @@ export default function TermsOfService() {
           {/* Content */}
           <div
             className="space-y-8 text-[15px] sm:text-[16px] leading-[180%] text-neutral-600"
-            style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
+            style={{ fontFamily: '"Poppins", sans-serif' }}
           >
             <section className="space-y-3">
               <h2 className="text-xl sm:text-2xl font-bold text-[#121414] tracking-tight">
@@ -42,10 +42,9 @@ export default function TermsOfService() {
               </h2>
               <p>
                 By accessing or using the services provided by Gate360 SaaS Ltd.
-                ("Gate360," "we," "our," or "us") via gate360.in, eduwizer.com
-                (successfully migrated to Gate360), or through our Guard and
-                Resident portals, you agree to comply with and be bound by these
-                Terms of Service. If you do not agree, please do not use our
+                ("Gate360," "we," "our," or "us") via gate360.in or through our
+                Guard and Resident portals, you agree to comply with and be bound by
+                these Terms of Service. If you do not agree, please do not use our
                 society management software or billing systems.
               </p>
             </section>
@@ -139,7 +138,7 @@ export default function TermsOfService() {
                 <strong className="text-neutral-800">Email:</strong>{" "}
                 <a
                   href="mailto:support@gate360.in"
-                  className="text-[#059669] font-semibold hover:underline"
+                  className="text-[#2e74e6] font-semibold hover:underline"
                 >
                   support@gate360.in
                 </a>

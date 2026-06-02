@@ -2,30 +2,30 @@ import React from "react";
 
 export default function PrivacyPolicy() {
   return (
-    <div className="w-full bg-[#F4F8F6] py-12 sm:py-20 text-black">
+    <div className="w-full bg-[#f4f8fa] py-12 sm:py-20 text-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Document Card */}
         <div className="bg-white rounded-3xl border border-gray-200/80 p-8 sm:p-12 lg:p-16 shadow-sm">
           {/* Header */}
-          <div className="border-b border-[#059669]/20 pb-8 mb-10">
+          <div className="border-b border-[#2e74e6]/20 pb-8 mb-10">
             <span
               className="text-[12px] sm:text-[13px] font-semibold tracking-[2px] uppercase mb-3 inline-block"
               style={{
-                color: "#059669",
-                fontFamily: '"Plus Jakarta Sans", sans-serif',
+                color: "#2e74e6",
+                fontFamily: '"Poppins", sans-serif',
               }}
             >
               LEGAL DOCUMENT
             </span>
             <h1
               className="text-3xl sm:text-4xl font-bold tracking-tight text-[#121414] mb-4"
-              style={{ fontFamily: '"Syne", sans-serif' }}
+              style={{ fontFamily: '"Poppins", sans-serif' }}
             >
               Privacy Policy
             </h1>
             <p
               className="text-sm text-[#5C5A54] font-medium"
-              style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
+              style={{ fontFamily: '"Poppins", sans-serif' }}
             >
               Last Updated: May 30, 2026
             </p>
@@ -34,7 +34,7 @@ export default function PrivacyPolicy() {
           {/* Content */}
           <div
             className="space-y-8 text-[15px] sm:text-[16px] leading-[180%] text-neutral-600"
-            style={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
+            style={{ fontFamily: '"Poppins", sans-serif' }}
           >
             <section className="space-y-3">
               <h2 className="text-xl sm:text-2xl font-bold text-[#121414] tracking-tight">
@@ -44,10 +44,9 @@ export default function PrivacyPolicy() {
                 Welcome to Gate360 SaaS Ltd. ("Gate360," "we," "our," or "us").
                 We are committed to protecting your personal information and
                 your right to privacy. This Privacy Policy governs our data
-                protection practices for eduwizer.com (transitioned completely
-                to the gate360.in platform) and all associated housing society
-                management services, visitor scanning applications, SOS Panic
-                systems, and resident portals.
+                protection practices for the gate360.in platform and all
+                associated housing society management services, visitor scanning
+                applications, SOS Panic systems, and resident portals.
               </p>
               <p>
                 If you have any questions or concerns about our policy, or our
@@ -55,7 +54,7 @@ export default function PrivacyPolicy() {
                 contact our community compliance team at{" "}
                 <a
                   href="mailto:support@gate360.in"
-                  className="text-[#059669] font-semibold hover:underline"
+                  className="text-[#2e74e6] font-semibold hover:underline"
                 >
                   support@gate360.in
                 </a>
@@ -174,7 +173,7 @@ export default function PrivacyPolicy() {
                 submit requests, please contact our support desk at{" "}
                 <a
                   href="mailto:support@gate360.in"
-                  className="text-[#059669] font-semibold hover:underline"
+                  className="text-[#2e74e6] font-semibold hover:underline"
                 >
                   support@gate360.in
                 </a>

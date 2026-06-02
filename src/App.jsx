@@ -10,8 +10,6 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
-import SrdDocument from "./pages/SrdDocument";
-import PortalDemo from "./pages/PortalDemo";
 
 import "./App.css";
 
@@ -27,27 +25,22 @@ function ScrollToTop() {
 }
 
 function AppContent() {
-  const location = useLocation();
-  const isDemoPage = location.pathname === "/demo";
-
   return (
     <div className="flex flex-col min-h-screen">
-      {!isDemoPage && <Navbar />}
+      <Navbar />
 
-      <main className={`flex-1 ${!isDemoPage ? "pt-16" : ""}`}>
+      <main className="flex-1 pt-16">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/srd" element={<SrdDocument />} />
-          <Route path="/demo" element={<PortalDemo />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
         </Routes>
       </main>
 
-      {!isDemoPage && <Footer />}
+      <Footer />
     </div>
   );
 }

@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { ArrowRight, Menu, X, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import logoImg from "../assets/logo.png";
 
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Features" },
-  { to: "/srd", label: "Product SRD" },
-  { to: "/demo", label: "Interactive Demo" },
   { to: "/contact", label: "Contact" },
 ];
 
@@ -16,146 +15,363 @@ export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Track scrolling to toggle navbar background styling
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Handle active link styles
-  const getLinkStyle = (isActive) => {
-    return {
-      fontFamily: '"Plus Jakarta Sans", sans-serif',
-      fontWeight: 600,
-      fontSize: "14px",
-      letterSpacing: "0.02em",
-      color: isActive ? "#059669" : "rgba(0, 0, 0, 0.75)",
-      transition: "all 0.2s ease-in-out",
-    };
-  };
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [menuOpen]);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b ${
-        scrolled
-          ? "bg-white/90 backdrop-blur-md shadow-sm border-[#E9E9E9]/60 py-3"
-          : "bg-white border-[#E9E9E9] py-4"
-      }`}
-    >
-      <div className="max-w-[1680px] mx-auto px-5 sm:px-8 lg:px-16 xl:px-24 flex items-center justify-between">
-        
-        {/* ================= BRAND LOGO ================= */}
-        <NavLink to="/" className="flex items-center gap-2.5 group shrink-0">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#062417] to-[#0D5C3A] flex items-center justify-center shadow-md transition-all duration-300 group-hover:scale-105">
-            <ShieldCheck size={22} className="text-[#10B981]" />
-          </div>
-          <div className="flex flex-col">
-            <span
-              className="text-xl font-bold tracking-tight text-[#121414]"
-              style={{ fontFamily: '"Syne", sans-serif' }}
-            >
-              Gate<span className="bg-gradient-to-r from-[#059669] to-[#C9A86A] bg-clip-text text-transparent">360</span>
-            </span>
-            <span className="text-[9px] font-medium tracking-[0.15em] text-[#998F81] uppercase -mt-1 font-poppins">
-              SOCIETY SAAS PLATFORM
-            </span>
-          </div>
-        </NavLink>
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap');
 
-        {/* ================= DESKTOP NAV ================= */}
-        <div className="hidden lg:flex items-center gap-9">
-          {navLinks.map(({ to, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              className="relative py-1 hover:text-[#059669] transition-colors"
-              style={({ isActive }) => getLinkStyle(isActive)}
+        .g360-nav {
+          position: fixed;
+          top: 0; left: 0; right: 0;
+          z-index: 1000;
+          font-family: 'DM Sans', sans-serif;
+          transition: background 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+        }
+        .g360-nav.scrolled {
+          background: rgba(255, 255, 255, 0.97);
+          box-shadow: 0 0 0 1px rgba(0,0,0,0.06), 0 2px 16px rgba(0,0,0,0.05);
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+        .g360-nav.top {
+          background: #ffffff;
+          box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+        }
+
+        .g360-inner {
+          max-width: 1440px;
+          margin: 0 auto;
+          padding: 0 40px;
+          height: 64px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 32px;
+        }
+
+        /* LOGO */
+        .g360-logo {
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          flex-shrink: 0;
+        }
+        .g360-logo img {
+          height: 34px;
+          width: auto;
+          display: block;
+        }
+
+        /* NAV LINKS */
+        .g360-links {
+          display: flex;
+          align-items: center;
+          gap: 2px;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        .g360-link {
+          text-decoration: none;
+          font-size: 13.5px;
+          font-weight: 500;
+          letter-spacing: 0.008em;
+          color: rgba(14, 14, 14, 0.55);
+          padding: 6px 14px;
+          border-radius: 7px;
+          transition: color 0.15s ease, background 0.15s ease;
+          position: relative;
+          white-space: nowrap;
+        }
+        .g360-link:hover {
+          color: rgba(14, 14, 14, 0.9);
+          background: rgba(14,14,14,0.04);
+        }
+        .g360-link.active {
+          color: #2563EB;
+          font-weight: 600;
+        }
+        .g360-link.active::after {
+          content: '';
+          position: absolute;
+          bottom: 2px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 18px;
+          height: 2px;
+          background: #2563EB;
+          border-radius: 99px;
+        }
+
+        /* DIVIDER */
+        .g360-divider {
+          width: 1px;
+          height: 20px;
+          background: rgba(0,0,0,0.1);
+          flex-shrink: 0;
+        }
+
+        /* RIGHT SIDE */
+        .g360-right {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex-shrink: 0;
+        }
+
+        /* GHOST BUTTON */
+        .g360-btn-ghost {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 13px;
+          font-weight: 500;
+          color: rgba(14,14,14,0.6);
+          background: transparent;
+          border: 1px solid rgba(14,14,14,0.12);
+          border-radius: 8px;
+          padding: 0 16px;
+          height: 36px;
+          cursor: pointer;
+          transition: border-color 0.15s, color 0.15s, background 0.15s;
+          letter-spacing: 0.01em;
+        }
+        .g360-btn-ghost:hover {
+          color: rgba(14,14,14,0.9);
+          border-color: rgba(14,14,14,0.25);
+          background: rgba(14,14,14,0.02);
+        }
+        .g360-btn-ghost:active {
+          transform: scale(0.98);
+        }
+
+        /* PRIMARY BUTTON */
+        .g360-btn-primary {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 13px;
+          font-weight: 600;
+          color: #ffffff;
+          background: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #4F46E5 100%);
+          border: none;
+          border-radius: 8px;
+          padding: 0 18px;
+          height: 36px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          letter-spacing: 0.01em;
+          transition: opacity 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+          box-shadow: 0 1px 2px rgba(37,99,235,0.2), 0 2px 8px rgba(79,70,229,0.25);
+        }
+        .g360-btn-primary:hover {
+          opacity: 0.9;
+          box-shadow: 0 2px 4px rgba(37,99,235,0.25), 0 6px 20px rgba(79,70,229,0.3);
+        }
+        .g360-btn-primary:active {
+          transform: scale(0.97);
+        }
+        .g360-btn-primary svg {
+          flex-shrink: 0;
+        }
+
+        /* HAMBURGER */
+        .g360-hamburger {
+          display: none;
+          align-items: center;
+          justify-content: center;
+          width: 38px;
+          height: 38px;
+          border: 1px solid rgba(14,14,14,0.12);
+          border-radius: 8px;
+          background: transparent;
+          cursor: pointer;
+          transition: background 0.15s, border-color 0.15s;
+          flex-shrink: 0;
+        }
+        .g360-hamburger:hover {
+          background: rgba(14,14,14,0.03);
+          border-color: rgba(14,14,14,0.2);
+        }
+        .g360-hamburger:active {
+          transform: scale(0.96);
+        }
+
+        /* MOBILE MENU */
+        .g360-mobile {
+          display: none;
+          flex-direction: column;
+          border-top: 1px solid rgba(0,0,0,0.07);
+          background: #fff;
+          padding: 8px 20px 20px;
+          overflow: hidden;
+          transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        .g360-mobile-link {
+          font-family: 'DM Sans', sans-serif;
+          font-size: 14px;
+          font-weight: 500;
+          color: rgba(14,14,14,0.6);
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 12px 8px;
+          border-bottom: 1px solid rgba(0,0,0,0.05);
+          transition: color 0.15s ease;
+          letter-spacing: 0.005em;
+        }
+        .g360-mobile-link:last-of-type {
+          border-bottom: none;
+        }
+        .g360-mobile-link:hover,
+        .g360-mobile-link.active {
+          color: #2563EB;
+        }
+        .g360-mobile-link .dot {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #2563EB;
+          opacity: 0;
+          transition: opacity 0.15s;
+          flex-shrink: 0;
+        }
+        .g360-mobile-link.active .dot {
+          opacity: 1;
+        }
+
+        .g360-mobile-cta {
+          margin-top: 14px;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 13.5px;
+          font-weight: 600;
+          color: #fff;
+          background: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #4F46E5 100%);
+          border: none;
+          border-radius: 9px;
+          height: 44px;
+          width: 100%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 7px;
+          letter-spacing: 0.01em;
+          transition: opacity 0.15s ease;
+          box-shadow: 0 2px 12px rgba(79,70,229,0.25);
+        }
+        .g360-mobile-cta:hover {
+          opacity: 0.88;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+          .g360-links { display: none; }
+          .g360-divider { display: none; }
+          .g360-btn-ghost { display: none; }
+          .g360-hamburger { display: flex; }
+          .g360-inner { padding: 0 20px; }
+        }
+
+        @media (max-width: 640px) {
+          .g360-btn-primary { display: none; }
+        }
+
+        .g360-mobile.open {
+          display: flex;
+        }
+      `}</style>
+
+      <nav className={`g360-nav ${scrolled ? "scrolled" : "top"}`}>
+        <div className="g360-inner">
+
+          {/* Logo */}
+          <NavLink to="/" className="g360-logo">
+            <img src={logoImg} alt="Gate360" />
+          </NavLink>
+
+          {/* Desktop links */}
+          <ul className="g360-links">
+            {navLinks.map(({ to, label }) => (
+              <li key={to}>
+                <NavLink
+                  to={to}
+                  className={({ isActive }) =>
+                    `g360-link${isActive ? " active" : ""}`
+                  }
+                >
+                  {label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          {/* Right side */}
+          <div className="g360-right">
+            <div className="g360-divider" />
+            <button className="g360-btn-ghost" onClick={() => navigate("/contact")}>
+              Contact
+            </button>
+            <button
+              className="g360-btn-primary"
+              onClick={() => navigate("/contact")}
             >
-              {({ isActive }) => (
-                <div className="flex flex-col items-center">
-                  <span>{label}</span>
-                  {isActive && (
-                    <span className="absolute -bottom-1 left-0 w-full h-[2.5px] bg-[#059669] rounded-full animate-pulse" />
-                  )}
-                </div>
-              )}
-            </NavLink>
-          ))}
+              Get Started
+              <ArrowUpRight size={13} strokeWidth={2.5} />
+            </button>
+            <button
+              className="g360-hamburger"
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-label="Toggle menu"
+            >
+              {menuOpen
+                ? <X size={17} strokeWidth={2} color="#121414" />
+                : <Menu size={17} strokeWidth={2} color="#121414" />
+              }
+            </button>
+          </div>
         </div>
 
-        {/* ================= ACTION BUTTONS / HAMBURGER ================= */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => navigate("/demo")}
-            className="hidden sm:flex items-center justify-center gap-2 h-[44px] px-6 rounded-xl text-sm font-semibold tracking-wider uppercase transition-all duration-300 hover:scale-[1.02] shadow-sm hover:shadow-md cursor-pointer"
-            style={{
-              backgroundColor: "#059669",
-              color: "#FFFFFF",
-              fontFamily: '"Plus Jakarta Sans", sans-serif',
-            }}
-          >
-            <span>Portal Demo</span>
-            <ArrowRight size={15} strokeWidth={2.5} className="text-white" />
-          </button>
-
-          {/* Hamburger button */}
-          <button
-            onClick={() => setMenuOpen((o) => !o)}
-            className="lg:hidden flex items-center justify-center w-10 h-10 rounded-xl border border-[#DADADA] transition-all hover:bg-neutral-50 active:scale-95"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-          >
-            {menuOpen ? <X size={20} color="#121414" /> : <Menu size={20} color="#121414" />}
-          </button>
-        </div>
-      </div>
-
-      {/* ================= MOBILE / TABLET MENU ================= */}
-      {menuOpen && (
-        <div className="lg:hidden w-full bg-white border-t border-[#ECECEC] px-6 py-6 flex flex-col gap-4 shadow-inner">
+        {/* Mobile menu */}
+        <div className={`g360-mobile${menuOpen ? " open" : ""}`}>
           {navLinks.map(({ to, label }) => (
             <NavLink
               key={to}
               to={to}
               onClick={() => setMenuOpen(false)}
-              className="py-2 hover:text-[#C9A86A] transition-colors"
-              style={({ isActive }) => ({
-                fontFamily: '"Plus Jakarta Sans", sans-serif',
-                fontWeight: 600,
-                fontSize: "15px",
-                color: isActive ? "#059669" : "rgba(0, 0, 0, 0.8)",
-              })}
+              className={({ isActive }) =>
+                `g360-mobile-link${isActive ? " active" : ""}`
+              }
             >
-              {label}
+              <span>{label}</span>
+              <span className="dot" />
             </NavLink>
           ))}
-
-          {/* Mobile CTA */}
           <button
-            onClick={() => {
-              navigate("/demo");
-              setMenuOpen(false);
-            }}
-            className="sm:hidden mt-2 w-full h-[46px] rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-95 shadow-sm"
-            style={{
-              backgroundColor: "#059669",
-              color: "#FFFFFF",
-              fontFamily: '"Plus Jakarta Sans", sans-serif',
-              fontWeight: 600,
-              fontSize: "14px",
-            }}
+            className="g360-mobile-cta"
+            onClick={() => { navigate("/contact"); setMenuOpen(false); }}
           >
-            <span>Launch Portal Demo</span>
-            <ArrowRight size={15} strokeWidth={2.5} />
+            Get Started
+            <ArrowUpRight size={14} strokeWidth={2.5} />
           </button>
         </div>
-      )}
-    </nav>
+      </nav>
+    </>
   );
 }
