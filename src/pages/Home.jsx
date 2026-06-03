@@ -20,9 +20,34 @@ import {
 function Home() {
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
+  
+  // Booking Form State
+  const [bookingProfile, setBookingProfile] = useState("");
+  const [bookingSubmitted, setBookingSubmitted] = useState(false);
+  const [bookingError, setBookingError] = useState("");
+  const [bookingDate, setBookingDate] = useState("");
 
   const handlePlayVideo = () => {
     setVideoPlaying(true);
+  };
+
+  const handleProfileChange = (val) => {
+    setBookingProfile(val);
+    if (val === "Committee" || val === "") {
+      setBookingError("");
+    } else {
+      setBookingError("Only RWA Committee Members can schedule a demo call.");
+    }
+  };
+
+  const handleBookingSubmit = (e) => {
+    e.preventDefault();
+    if (bookingProfile !== "Committee") {
+      setBookingError("Only RWA Committee Members can schedule a demo call.");
+      return;
+    }
+    setBookingError("");
+    setBookingSubmitted(true);
   };
 
   // Scroll animations observer
@@ -269,7 +294,7 @@ function Home() {
                 <div className="video-frame" id="videoContainer">
                   {videoPlaying ? (
                     <iframe
-                      src="https://www.youtube.com/embed/R-3oGPE3Fs8?autoplay=1&controls=1&modestbranding=1&rel=0"
+                      src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=1&modestbranding=1&rel=0"
                       title="Gate360 Showcase"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -344,154 +369,93 @@ function Home() {
                   </div>
                 </div>
                 <div className="booking-form-wrapper reveal-auto">
-                  <form className="booking-form" onSubmit={(e) => e.preventDefault()}>
-                    <div className="form-grid">
-                      <div className="input-group">
-                        <label>Your Name</label>
-                        <input type="text" placeholder="Full name" required />
-                      </div>
-                      <div className="input-group">
-                        <label>Contact Number</label>
-                        <input type="tel" placeholder="10-digit mobile" maxLength="10" required />
-                      </div>
+                  {bookingSubmitted ? (
+                    <div className="booking-success">
+                      <CheckCircle2 size={40} className="text-green" style={{ color: "#10b981", marginBottom: "16px" }} />
+                      <h3>Walkthrough Scheduled!</h3>
+                      <p>Thank you. Our onboarding specialist will contact you shortly to confirm the product demo slot for your committee.</p>
+                      <button 
+                        onClick={() => { setBookingSubmitted(false); setBookingProfile(""); setBookingDate(""); }} 
+                        className="btn-secondary"
+                        style={{ border: "1px solid rgba(255,255,255,0.25)", background: "transparent", color: "#ffffff", padding: "10px 24px" }}
+                      >
+                        Schedule Another
+                      </button>
                     </div>
-                    <div className="form-grid">
-                      <div className="input-group">
-                        <label>Gated Society Name</label>
-                        <input type="text" placeholder="e.g. Skyline Towers" required />
+                  ) : (
+                    <form className="booking-form" onSubmit={handleBookingSubmit}>
+                      <div className="form-grid">
+                        <div className="input-group">
+                          <label>Your Name</label>
+                          <input type="text" placeholder="e.g. Vinod Kumar" required />
+                        </div>
+                        <div className="input-group">
+                          <label>Email Address</label>
+                          <input type="email" placeholder="e.g. vinod@gmail.com" required />
+                        </div>
                       </div>
-                      <div className="input-group">
-                        <label>Area Pincode</label>
-                        <input type="text" placeholder="6-digit PIN" maxLength="6" required />
+                      <div className="form-grid">
+                        <div className="input-group">
+                          <label>Mobile Number</label>
+                          <input type="tel" placeholder="e.g. 7977105170" maxLength="10" required />
+                        </div>
+                        <div className="input-group">
+                          <label>Gated Society Name</label>
+                          <input type="text" placeholder="e.g. Skyline Towers" required />
+                        </div>
                       </div>
-                    </div>
-                    <div className="form-grid">
-                      <div className="input-group">
-                        <label>Apartment Size</label>
-                        <select required>
-                          <option value="">Choose Units</option>
-                          <option value="50-100">50 - 100 units</option>
-                          <option value="100-200">100 - 200 units</option>
-                          <option value="200-500">200 - 500 units</option>
-                          <option value="500+">500+ units</option>
-                        </select>
+                      <div className="form-grid">
+                        <div className="input-group">
+                          <label>Flats/Units Count</label>
+                          <select required>
+                            <option value="">Choose Units</option>
+                            <option value="<50">Less than 50 Units</option>
+                            <option value="50-150">50 - 150 Units</option>
+                            <option value="150-250">150 - 250 Units</option>
+                            <option value="250+">More than 250 Units</option>
+                          </select>
+                        </div>
+                        <div className="input-group">
+                          <label>Your Profile</label>
+                          <select 
+                            required 
+                            value={bookingProfile} 
+                            onChange={(e) => handleProfileChange(e.target.value)}
+                          >
+                            <option value="">Choose Role</option>
+                            <option value="Committee">RWA Committee Member</option>
+                          </select>
+                        </div>
                       </div>
-                      <div className="input-group">
-                        <label>Your Profile</label>
-                        <select required>
-                          <option value="">Choose Role</option>
-                          <option value="Resident">Society Resident</option>
-                          <option value="Committee">RWA Committee Member</option>
-                          <option value="Manager">Estate Manager</option>
-                          <option value="Builder">Builder / Developer</option>
-                        </select>
+                      <div className="form-grid">
+                        <div className="input-group">
+                          <label>Preferred Demo Date</label>
+                          <input 
+                            type="date" 
+                            required 
+                            value={bookingDate} 
+                            onChange={(e) => setBookingDate(e.target.value)} 
+                          />
+                        </div>
+                        <div></div>
                       </div>
-                    </div>
-                    <button type="submit" className="form-submit-btn">
-                      <span>Schedule Demo Call</span>
-                      <ArrowRight size={16} />
-                    </button>
-                  </form>
+                      <button 
+                        type="submit" 
+                        className="form-submit-btn" 
+                        disabled={bookingProfile !== "" && bookingProfile !== "Committee"}
+                      >
+                        <span>Schedule Demo Call</span>
+                        <ArrowRight size={16} />
+                      </button>
+                    </form>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* SUBSCRIPTIONS SECTION */}
-        <section className="pricing-section">
-          <div className="section-container">
-            <div className="section-header reveal-auto">
-              <span className="section-badge">Pricing Plans</span>
-              <h2>Simple, transparent pricing for your society</h2>
-              <p>Choose the plan that fits your community size and requirements.</p>
-            </div>
-            
-            <div className="pricing-grid reveal-auto">
-              {/* Trial Plan */}
-              <div className="pricing-card">
-                <div className="pricing-top">
-                  <h3 className="pricing-title">Trial</h3>
-                  <div className="pricing-price">
-                    <span className="currency">₹</span>
-                    <span className="amount">0</span>
-                    <span className="period">/14 days</span>
-                  </div>
-                  <p className="pricing-desc">Test the waters and see how Gate360 fits your community.</p>
-                </div>
-                <div className="pricing-features">
-                  <ul>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Visitor & Gate Security</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Notice Board & Circulars</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Helpdesk Ticketing</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Basic Maintenance Billing</li>
-                    <li className="disabled"><CheckCircle2 size={16} className="text-gray" /> Events & Album Archive</li>
-                    <li className="disabled"><CheckCircle2 size={16} className="text-gray" /> Blog & News Posts</li>
-                    <li className="disabled"><CheckCircle2 size={16} className="text-gray" /> Buy/Sell & Jobs Board</li>
-                  </ul>
-                </div>
-                <div className="pricing-bottom">
-                  <a href="/contact" className="btn-pricing-outline">Start Free Trial</a>
-                </div>
-              </div>
 
-              {/* Basic Plan (Highlighted) */}
-              <div className="pricing-card premium">
-                <div className="pricing-popular">Most Popular</div>
-                <div className="pricing-top">
-                  <h3 className="pricing-title">Basic</h3>
-                  <div className="pricing-price">
-                    <span className="currency">₹</span>
-                    <span className="amount">15</span>
-                    <span className="period">/flat/mo</span>
-                  </div>
-                  <p className="pricing-desc">For small to medium societies needing core management tools.</p>
-                </div>
-                <div className="pricing-features">
-                  <ul>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Everything in Trial</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Maintenance Billing & ERP</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Events & Album Archive</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Blog & News Posts</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Amenity Booking</li>
-                    <li className="disabled"><CheckCircle2 size={16} className="text-gray" /> Buy/Sell Classifieds</li>
-                    <li className="disabled"><CheckCircle2 size={16} className="text-gray" /> Jobs & Property Board</li>
-                  </ul>
-                </div>
-                <div className="pricing-bottom">
-                  <a href="/contact" className="btn-pricing-solid">Get Started</a>
-                </div>
-              </div>
-
-              {/* Premium Plan */}
-              <div className="pricing-card">
-                <div className="pricing-top">
-                  <h3 className="pricing-title">Premium</h3>
-                  <div className="pricing-price">
-                    <span className="currency">₹</span>
-                    <span className="amount">25</span>
-                    <span className="period">/flat/mo</span>
-                  </div>
-                  <p className="pricing-desc">Everything you need to automate a large township seamlessly.</p>
-                </div>
-                <div className="pricing-features">
-                  <ul>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Everything in Basic</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Buy / Sell Classifieds</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Jobs Board</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Property Listings</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Business Management</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Polls & Community Voting</li>
-                    <li><CheckCircle2 size={16} className="text-blue" /> Dedicated Account Manager</li>
-                  </ul>
-                </div>
-                <div className="pricing-bottom">
-                  <a href="/contact" className="btn-pricing-outline">Upgrade to Premium</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* FAQS */}
         <section className="faq-section">
@@ -1303,6 +1267,42 @@ function Home() {
         }
         .form-submit-btn:active {
           transform: scale(0.98);
+        }
+        .form-submit-btn:disabled {
+          background: rgba(255, 255, 255, 0.08);
+          color: rgba(255, 255, 255, 0.25);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          cursor: not-allowed;
+          box-shadow: none;
+          opacity: 0.55;
+        }
+        .profile-warning-msg {
+          font-size: 11px;
+          color: #f87171;
+          margin-top: 4px;
+          font-weight: 500;
+          line-height: 1.4;
+          text-align: left;
+        }
+        .booking-success {
+          text-align: center;
+          padding: 20px 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+        }
+        .booking-success h3 {
+          font-size: 24px;
+          font-weight: 700;
+          margin: 0;
+          color: #ffffff;
+        }
+        .booking-success p {
+          font-size: 14px;
+          color: #94a3b8;
+          line-height: 1.6;
+          margin: 0 0 10px 0;
         }
 
         @media (max-width: 960px) {

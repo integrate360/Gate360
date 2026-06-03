@@ -150,8 +150,8 @@ export default function Footer() {
                   <div className="ft-contact-icon">
                     <Mail size={14} />
                   </div>
-                  <a href="mailto:support@gate360.in" className="ft-contact-link">
-                    support@gate360.in
+                  <a href="mailto:support@gate-360.com" className="ft-contact-link">
+                    support@gate-360.com
                   </a>
                 </li>
               </ul>
@@ -511,7 +511,7 @@ export default function Footer() {
         }
 
         .ft-logo {
-          height: 36px;
+          height: 46px;
           width: auto;
           object-fit: contain;
           margin-bottom: 18px;

@@ -17,6 +17,7 @@ export default function Contact() {
     phone: "",
     societyName: "",
     flatCount: "50-150",
+    profile: "",
     modules: [],
     date: "",
     time: "",
@@ -125,8 +126,8 @@ export default function Contact() {
                     </div>
                     <div className="office-text-block">
                       <span className="office-label">Support Desk</span>
-                      <a href="mailto:support@gate360.in" className="office-link">
-                        support@gate360.in
+                      <a href="mailto:support@gate-360.com" className="office-link">
+                        support@gate-360.com
                       </a>
                     </div>
                   </li>
@@ -223,6 +224,23 @@ export default function Contact() {
                       </div>
                     </div>
 
+                    {/* Your Profile */}
+                    <div className="input-field-group">
+                      <label>Your Profile</label>
+                      <div className="select-input-container">
+                        <select
+                          required
+                          value={formData.profile}
+                          onChange={(e) => setFormData({ ...formData, profile: e.target.value })}
+                        >
+                          <option value="">Choose Role</option>
+                          <option value="Committee">RWA Committee Member</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="form-row-grid">
                     {/* Target Booking Date */}
                     <div className="input-field-group">
                       <label>Preferred Demo Date</label>
@@ -233,32 +251,10 @@ export default function Contact() {
                         onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                       />
                     </div>
+                    <div></div>
                   </div>
 
-                  {/* Modules of Interest */}
-                  <div className="modules-selector-group">
-                    <label>Target Modules of Interest</label>
-                    <div className="modules-grid-options">
-                      {[
-                        "Gate Security",
-                        "Billing Hub",
-                        "SOS Panic Alerts",
-                        "RWA Forums",
-                      ].map((m) => {
-                        const checked = formData.modules.includes(m);
-                        return (
-                          <button
-                            key={m}
-                            type="button"
-                            onClick={() => toggleModule(m)}
-                            className={`module-toggle-capsule ${checked ? "active" : ""}`}
-                          >
-                            {m}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
+
 
                   {/* Submit */}
                   <button type="submit" className="form-submit-btn-custom">

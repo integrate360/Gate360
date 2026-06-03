@@ -53,10 +53,10 @@ export default function PrivacyPolicy() {
                 practices with regards to your personal information, please
                 contact our community compliance team at{" "}
                 <a
-                  href="mailto:support@gate360.in"
+                  href="mailto:support@gate-360.com"
                   className="text-[#2e74e6] font-semibold hover:underline"
                 >
-                  support@gate360.in
+                  support@gate-360.com
                 </a>
                 .
               </p>
@@ -172,10 +172,10 @@ export default function PrivacyPolicy() {
                 administrative approval for outstanding billing collections). To
                 submit requests, please contact our support desk at{" "}
                 <a
-                  href="mailto:support@gate360.in"
+                  href="mailto:support@gate-360.com"
                   className="text-[#2e74e6] font-semibold hover:underline"
                 >
-                  support@gate360.in
+                  support@gate-360.com
                 </a>
                 .
               </p>

@@ -58,7 +58,7 @@ export default function Navbar() {
           max-width: 1440px;
           margin: 0 auto;
           padding: 0 40px;
-          height: 64px;
+          height: 72px;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -73,7 +73,7 @@ export default function Navbar() {
           flex-shrink: 0;
         }
         .g360-logo img {
-          height: 34px;
+          height: 42px;
           width: auto;
           display: block;
         }
@@ -89,7 +89,7 @@ export default function Navbar() {
         }
         .g360-link {
           text-decoration: none;
-          font-size: 13.5px;
+          font-size: 15px;
           font-weight: 500;
           letter-spacing: 0.008em;
           color: rgba(14, 14, 14, 0.55);
@@ -138,14 +138,14 @@ export default function Navbar() {
         /* GHOST BUTTON */
         .g360-btn-ghost {
           font-family: 'DM Sans', sans-serif;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 500;
           color: rgba(14,14,14,0.6);
           background: transparent;
           border: 1px solid rgba(14,14,14,0.12);
           border-radius: 8px;
           padding: 0 16px;
-          height: 36px;
+          height: 40px;
           cursor: pointer;
           transition: border-color 0.15s, color 0.15s, background 0.15s;
           letter-spacing: 0.01em;
@@ -162,14 +162,14 @@ export default function Navbar() {
         /* PRIMARY BUTTON */
         .g360-btn-primary {
           font-family: 'DM Sans', sans-serif;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 600;
           color: #ffffff;
           background: linear-gradient(135deg, #3B82F6 0%, #2563EB 50%, #4F46E5 100%);
           border: none;
           border-radius: 8px;
           padding: 0 18px;
-          height: 36px;
+          height: 40px;
           cursor: pointer;
           display: flex;
           align-items: center;
